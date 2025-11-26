@@ -164,8 +164,11 @@ def create_interactive_popup():
     display(button, popup)
 
 def load_mappings_s3():
-    obj = s3.get_object(Bucket=bucket, Key=key)
-    return json.loads(obj["Body"].read().decode("utf-8"))
+    try:
+        obj = s3.get_object(Bucket=bucket, Key=key)
+        return json.loads(obj["Body"].read().decode("utf-8"))
+    except:
+        return []
 
 def save_list_to_s3(key: str, values: list[str]):
     try:
@@ -173,4 +176,5 @@ def save_list_to_s3(key: str, values: list[str]):
         s3.put_object(Bucket=bucket, Key=key, Body=body)
         logging.info(f"Saved {len(values)} items to s3://{bucket}/{key}")
     except Exception as e:
-        logging.error(f"Error saving list to S3 at {key}", exc_info=e)
+        pass
+        # logging.error(f"Error saving list to S3 at {key}", exc_info=e)

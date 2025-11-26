@@ -1,18 +1,14 @@
-import os
-
-import boto3
-
 from python import popup
 from python.notebook import compute
+from python.utils import find_project_root
 
-popup.s3 = boto3.Session(profile_name='charles-perso').client('s3')
-project = os.getcwd()
-generated_excel_path = f"{project}/excels/paymatch.xlsx"
+popup.s3 = None
+excel_folder = f"{find_project_root()}/excels/"
 
-#
-pm_excel = f"{project}/excels/A.xlsx"
-pm_sarl_excel = f"{project}/excels/B.xlsx"
-bank_excel = f"{project}/excels/C.xlsx"
+pm_excel = f"{excel_folder}A.xlsx"
+pm_sarl_excel = f"{excel_folder}B.xlsx"
+bank_excel = f"{excel_folder}C.xlsx"
+generated_excel_path = f"{excel_folder}paymatch.xlsx"
 selected_month = 1
 
 red_percent = compute(pm_excel, pm_sarl_excel, bank_excel, generated_excel_path, selected_month)
