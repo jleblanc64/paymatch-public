@@ -6,7 +6,8 @@ import json
 
 from python import s3_utils
 
-s3 = s3_utils.s3_client()
+# s3 = s3_utils.s3_client()
+s3 = None
 bucket = "paymatch"
 key = "mappings.json"
 

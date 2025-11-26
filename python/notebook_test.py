@@ -1,8 +1,6 @@
-from python import popup
 from python.notebook import compute
 from python.utils import find_project_root
 
-popup.s3 = None
 excel_folder = f"{find_project_root()}/excels/"
 
 pm_excel = f"{excel_folder}A.xlsx"
