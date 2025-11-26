@@ -4,10 +4,8 @@ import os
 from python.kernel_heartbeat import setup_heartbeat_checker
 from python.pm_sarl import locataire_to_sum
 from python.popup import create_interactive_popup, save_list_to_s3, load_mappings_s3
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from python.utils_js import check_javascript
 from python.utils_excel import *
 from python.utils_button import *
 from python.fuzzy import match_strings, unique_sorted
@@ -21,7 +19,6 @@ from IPython.display import HTML, display
 import ipywidgets as widgets
 import uuid
 import warnings
-from dateutil import parser
 warnings.filterwarnings("ignore")
 
 
@@ -33,7 +30,6 @@ base_out = widgets.Output()
 notebook_output = widgets.Output()
 
 def run():
-    check_javascript()
     with base_out:
         setup_heartbeat_checker()
     display(base_out)
