@@ -12,13 +12,6 @@ bucket = "paymatch"
 key = "mappings.json"
 
 def create_interactive_popup():
-    def load_values_from_s3(filename):
-        try:
-            obj = s3.get_object(Bucket=bucket, Key=filename)
-            return json.loads(obj["Body"].read().decode("utf-8"))
-        except Exception:
-            return []
-
     # start with empty dropdowns; values will be set on open
     dropdown1 = v.Select(label='A names', items=[], v_model=None, style_='flex:1; margin-right:5px;')
     dropdown2 = v.Select(label='C names', items=[], v_model=None, style_='flex:1; margin-left:5px;')
@@ -171,11 +164,19 @@ def load_mappings_s3():
     except:
         return []
 
+mem_cache = {}
+def load_values_from_s3(filename):
+    try:
+        obj = s3.get_object(Bucket=bucket, Key=filename)
+        return json.loads(obj["Body"].read().decode("utf-8"))
+    except Exception:
+        return mem_cache.get(filename, [])
+
 def save_list_to_s3(key: str, values: list[str]):
     try:
         body = json.dumps(values).encode("utf-8")
         s3.put_object(Bucket=bucket, Key=key, Body=body)
         logging.info(f"Saved {len(values)} items to s3://{bucket}/{key}")
     except Exception as e:
-        pass
+        mem_cache[key] = values
         # logging.error(f"Error saving list to S3 at {key}", exc_info=e)
