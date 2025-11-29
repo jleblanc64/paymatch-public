@@ -47,7 +47,7 @@ COPY . .
 # Copy Traefik static config file (you create traefik.yml next)
 COPY traefik.yml /etc/traefik/traefik.yml
 COPY dynamic_conf.yml /etc/traefik/dynamic_conf.yml
-COPY config/run_voila.py /app/run_voila.py
+COPY run_voila.py /app/run_voila.py
 
 # count_kernels
 COPY config/count_kernels.sh /app/count_kernels.sh

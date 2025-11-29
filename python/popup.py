@@ -1,12 +1,11 @@
+import boto3
 import ipyvuetify as v
 import ipywidgets as widgets
 from IPython.display import display
 import logging
 import json
 
-from python import s3_utils
-
-# s3 = s3_utils.s3_client()
+# s3 = boto3.client('s3')
 s3 = None
 bucket = "paymatch"
 key = "mappings.json"

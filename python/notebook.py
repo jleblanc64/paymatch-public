@@ -1,7 +1,8 @@
 import sys
 import os
 
-from python.kernel_heartbeat import setup_heartbeat_checker
+from ipystream.voila.kernel_heartbeat import setup_heartbeat_checker
+
 from python.pm_sarl import locataire_to_sum
 from python.popup import create_interactive_popup, save_list_to_s3, load_mappings_s3
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

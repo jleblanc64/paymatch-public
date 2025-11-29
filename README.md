@@ -1,6 +1,6 @@
 # paymatch-public
 
-To run locally: `bash docker.sh`, then open localhost:8888 in browser
+To run locally: `bash docker.sh`, then open `localhost:8888` in browser
 
 Folder of excels to upload in UI: `excels`
 
