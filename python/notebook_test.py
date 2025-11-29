@@ -1,5 +1,5 @@
+from ipystream.voila.kernel import find_project_root
 from python.notebook import compute
-from python.utils import find_project_root
 
 excel_folder = f"{find_project_root()}/excels/"
 
