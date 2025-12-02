@@ -37,20 +37,16 @@ RUN mkdir -p /etc/jupyter && \
       } \
     }' > /etc/jupyter/voila.json
 
-# Copy notebooks and pre-trust them
-COPY demo.ipynb /app/demo.ipynb
-RUN jupyter trust /app/demo.ipynb
-
 # Copy application code
 COPY . .
 
 # Copy Traefik static config file (you create traefik.yml next)
-COPY traefik.yml /etc/traefik/traefik.yml
-COPY dynamic_conf.yml /etc/traefik/dynamic_conf.yml
+COPY healthcheck/count_kernels.sh /app/count_kernels.sh
+COPY healthcheck/dynamic_conf.yml /etc/traefik/dynamic_conf.yml
+COPY healthcheck/traefik.yml /etc/traefik/traefik.yml
 COPY run_voila.py /app/run_voila.py
 
 # count_kernels
-COPY config/count_kernels.sh /app/count_kernels.sh
 RUN chmod +x /app/count_kernels.sh
 
 EXPOSE 80
