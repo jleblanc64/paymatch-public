@@ -1,15 +1,8 @@
-import sys
-import os
-
-from ipystream.voila.kernel_heartbeat import setup_heartbeat_checker
-
-from python.pm_sarl import locataire_to_sum
-from python.popup import create_interactive_popup, save_list_to_s3, load_mappings_s3
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
+from python.pm_sarl import *
+from python.popup import *
 from python.utils_excel import *
 from python.utils_button import *
-from python.fuzzy import match_strings, unique_sorted
+from python.fuzzy import *
 
 from datetime import datetime
 from ipydatagrid import DataGrid, TextRenderer, VegaExpr
@@ -19,22 +12,20 @@ from collections import defaultdict
 from IPython.display import HTML, display
 import ipywidgets as widgets
 import uuid
-import warnings
-warnings.filterwarnings("ignore")
-
 
 bank_customer_key = "Beguenstigter/Zahlungspflichtiger"
 bank_amount_key = "Betrag"
 bank_date_key = "Buchungstag"
 
-base_out = widgets.Output()
-notebook_output = widgets.Output()
-
 def run():
-    with base_out:
-        setup_heartbeat_checker()
-    display(base_out)
-    css(base_out)
+    # make "Month:" description red + bold
+    display(HTML("""<style>
+            .widget-label {
+                font-size: 20px !important;
+                font-weight: bold !important;
+                color: red !important;
+            }
+            </style>"""))
 
     # paths where excel files will be downloaded
     pm_excel = f"/tmp/{str(uuid.uuid4())}"
@@ -66,6 +57,7 @@ def run():
         icon='play'
     )
 
+    notebook_output = widgets.Output()
     def on_run_button_click(_):
         notebook_output.clear_output()
         with notebook_output:
@@ -77,7 +69,7 @@ def run():
                     generated_excel_path,
                     month_dropdown.value
                 )
-            except Exception:
+            except:
                 error_label = widgets.HTML(
                     "<span style='color:red; font-size:20px; font-weight:bold;'>Error. Please upload the 3 proper excels</span>"
                 )
@@ -94,7 +86,7 @@ def css(out):
         display(HTML("""
             <style>
             .lm-Widget.widget-label {
-                font-size: 20px !important;
+                font-size: 40px !important;
                 font-weight: bold !important;
                 color: #222 !important;
             }
